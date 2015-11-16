@@ -56,16 +56,6 @@
         android:layout_alignStart="@+id/op3"
         android:layout_marginBottom="5dp" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="JUMP"
-        android:id="@+id/jumpBtn"
-        android:layout_below="@+id/op4"
-        android:layout_alignLeft="@+id/op4"
-        android:layout_alignStart="@+id/op4"
-        android:layout_marginBottom="5dp"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -82,6 +72,18 @@
         android:layout_above="@+id/counter"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/jumpBtn" />
+        android:layout_alignTop="@+id/jumpBtn"
+        android:layout_toRightOf="@+id/jumpBtn"
+        android:layout_toEndOf="@+id/jumpBtn" />
+
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/jumpBtn"
+        android:src="@drawable/jump"
+        android:layout_below="@+id/op4"
+        android:layout_alignLeft="@+id/op4"
+        />
+
 
 </RelativeLayout>

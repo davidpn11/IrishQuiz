@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +25,8 @@ public class GameActivity extends AppCompatActivity {
 
     TextView sentence;
     ImageView mark;
-    Button op1,op2,op3,op4,jumpBtn;
+    Button op1,op2,op3,op4;
+    ImageButton jumpBtn;
     int Score = 0;
 
     int n_question = 0;
@@ -44,9 +46,9 @@ public class GameActivity extends AppCompatActivity {
         op2 = (Button) findViewById(R.id.op2);
         op3 = (Button) findViewById(R.id.op3);
         op4 = (Button) findViewById(R.id.op4);
-        jumpBtn = (Button) findViewById(R.id.jumpBtn);
+        jumpBtn = (ImageButton) findViewById(R.id.jumpBtn);
 
-        jumpBtn.getBackground().setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
+        //jumpBtn.getBackground().setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
         JSONArray array = db.getAllQuestions();
         array_lenght = array.length();
        // try{
