@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -162,10 +166,88 @@ public class DbManager extends SQLiteOpenHelper{
     }
 
 
-    public Cursor getAllData(String name){
+    public JSONArray getAllQuestions(){
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor c = null;
+        c = db.rawQuery("SELECT * FROM " + table_question+";", null);
+
+        JSONArray array = new JSONArray();
+
+        if(c.getCount() ==0){
+            return null;
+        }else{
+            Log.e("N of questions", ""+c.getCount());
+            try{
+            while (c.moveToNext()){
+                JSONObject obj = new JSONObject();
+                obj.put("id",c.getString(0));
+                obj.put("sentence",c.getString(1));
+                obj.put("op1",c.getString(2));
+                obj.put("op2",c.getString(3));
+                obj.put("op3",c.getString(4));
+                obj.put("op4",c.getString(5));
+                obj.put("answer",c.getString(6));
+                array.put(obj);
+            }
+
+                return array;
+            }catch(JSONException e) {
+                Log.e("JSON Exception","");
+                e.printStackTrace();
+                return null;
+            }
+
+        }
+
+
+    }
+
+    public ArrayList getAllScores(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM "+name,null);
-        return c;
+        Cursor c = db.rawQuery("SELECT * FROM player ORDER BY player_score DESC", null);
+
+
+        ArrayList<String> array = new ArrayList<>();
+
+        if(c.getCount() ==0){
+            return null;
+        }else{
+            Log.e("N of player", ""+c.getCount());
+
+                String temp;
+                while (c.moveToNext()){
+                    temp = c.getString(0)+"-"+c.getString(2);
+                    Log.e("player",temp);
+                    array.add(temp);
+                }
+
+                return array;
+        }
+
+    }
+
+
+    public boolean setScore(String login,int new_score){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT player_score FROM " + table_player + " where player_login = \"" + login + "\";", null);
+
+        int score =0;
+        if(c.getCount()==1) {
+            while (c.moveToNext()) {
+                score = c.getInt(0);
+            }
+
+
+            if (new_score > score) {
+                db.execSQL("UPDATE PLAYER SET player_score = "+new_score+" WHERE player_login = \"" + login + "\";");
+                return true;
+            }else{
+                return false;
+            }
+
+        }else{
+            return false;
+        }
     }
 
 

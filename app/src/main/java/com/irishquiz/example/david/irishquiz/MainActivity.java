@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
                 check_login = db.login(login.getText().toString(),passwd.getText().toString());
 
                 if(check_login){
-                    Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
                     Intent it = new Intent(MainActivity.this,MenuActivity.class);
                     it.putExtra("login",login.getText().toString());
                     startActivity(it);

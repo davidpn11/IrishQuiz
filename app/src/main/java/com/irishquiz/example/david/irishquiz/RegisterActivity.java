@@ -1,15 +1,11 @@
 package com.irishquiz.example.david.irishquiz;
 
-import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.concurrent.TimeUnit;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -20,7 +16,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         final EditText login_text = (EditText) findViewById(R.id.editText);
         final EditText passwd_text = (EditText) findViewById(R.id.editText2);
-        Button registerBTN = (Button) findViewById(R.id.button);
+        Button registerBTN = (Button) findViewById(R.id.op1);
         final DbManager db = new DbManager(this);
 
 
