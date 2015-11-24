@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,15 +28,21 @@ public class GameActivity extends AppCompatActivity {
     ImageView mark;
     Button op1,op2,op3,op4;
     ImageButton jumpBtn;
+    private MediaPlayer player;
     int Score = 0;
 
     int n_question = 0;
     int array_lenght = 0;
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        setTitle("Irish Quiz");
 
         final TextView counter = (TextView)findViewById(R.id.counter);
         final DbManager db = new DbManager(this);
@@ -47,6 +54,16 @@ public class GameActivity extends AppCompatActivity {
         op3 = (Button) findViewById(R.id.op3);
         op4 = (Button) findViewById(R.id.op4);
         jumpBtn = (ImageButton) findViewById(R.id.jumpBtn);
+        player = MediaPlayer.create(getApplicationContext(),R.raw.failure);
+        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                player.release();
+                player = MediaPlayer.create(getApplicationContext(),R.raw.failure);
+                player.setOnCompletionListener(this);
+            }
+        });
+
 
         //jumpBtn.getBackground().setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
         JSONArray array = db.getAllQuestions();
@@ -107,6 +124,8 @@ public class GameActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         boolean b = getAnswer(answer, 1);
 
+                        player.start();
+
                         if (b) {
                             setMark(true);
                         } else {
@@ -129,6 +148,8 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         boolean b = getAnswer(answer, 2);
+                       // player.reset();
+                        player.start();
                         if (b) {
                             setMark(true);
                         } else {
@@ -148,6 +169,8 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         boolean b =  getAnswer(answer,3);
+                       // player.reset();
+                        player.start();
                         if (b) {
                             setMark(true);
                         } else {
@@ -166,6 +189,8 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         boolean b = getAnswer(answer,4);
+                       // player.reset();
+                        player.start();
                         if (b) {
                             setMark(true);
                         } else {

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,22 +40,34 @@ class RankAdapter extends ArrayAdapter<String>{
             view = inflater.inflate(layoutResourceId, parent, false);
             TextView pos = (TextView) view.findViewById(R.id.position);
             TextView player = (TextView) view.findViewById(R.id.player);
-            //TextView score = (TextView) view.findViewById(R.id.score);
+            TextView score_text = (TextView) view.findViewById(R.id.score);
+
+            String full = data.get(position);
+            String name="",score="";
+
+
+
+
+            for(int i=0; i < full.length();i++){
+
+                if(full.substring(i,i+1).equals("-")){
+                    score = full.substring(i+1,i+2);
+                    break;
+                }else{
+                    name += full.substring(i,i+1);
+                }
+            }
+
+
+
 
             pos.setText(""+(position+1));
-            player.setText(data.get(position));
+            player.setText(name);
+            score_text.setText(score);
         }
 
         return view;
     }
-
-
-    public void separateValues(String x){
-
-
-
-    }
-
 
 }
 

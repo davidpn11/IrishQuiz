@@ -13,7 +13,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        setTitle("Registration");
         final EditText login_text = (EditText) findViewById(R.id.editText);
         final EditText passwd_text = (EditText) findViewById(R.id.editText2);
         Button registerBTN = (Button) findViewById(R.id.op1);

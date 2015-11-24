@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setTitle("Irish Quiz");
         final EditText login = (EditText) findViewById(R.id.login);
         final EditText passwd = (EditText) findViewById(R.id.passwd);
         Button connect = (Button) findViewById(R.id.connBtn);
