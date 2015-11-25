@@ -24,9 +24,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
         android:src="@drawable/player_play"
+        android:layout_marginTop="57dp"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,12 +53,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="See Rank"
         android:id="@+id/rankBtn"
-        android:layout_below="@+id/textView2"
+        android:src="@drawable/rank"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/imageView2"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2" />
 </RelativeLayout>

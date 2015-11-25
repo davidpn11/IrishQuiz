@@ -28,14 +28,8 @@ public class GameActivity extends AppCompatActivity {
     ImageView mark;
     Button op1,op2,op3,op4;
     ImageButton jumpBtn;
-    private MediaPlayer player;
-    int Score = 0;
-
-    int n_question = 0;
-    int array_lenght = 0;
-
-
-
+    private MediaPlayer success,fail,jump;
+    int Score = 0,array_lenght = 0,n_question = 0,jump_count = 3;
 
 
     @Override
@@ -54,15 +48,36 @@ public class GameActivity extends AppCompatActivity {
         op3 = (Button) findViewById(R.id.op3);
         op4 = (Button) findViewById(R.id.op4);
         jumpBtn = (ImageButton) findViewById(R.id.jumpBtn);
-        player = MediaPlayer.create(getApplicationContext(),R.raw.failure);
-        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        jumpBtn.setVisibility(View.VISIBLE);
+        jumpBtn.setClickable(true);
+        fail = MediaPlayer.create(getApplicationContext(),R.raw.failure);
+        fail.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                player.release();
-                player = MediaPlayer.create(getApplicationContext(),R.raw.failure);
-                player.setOnCompletionListener(this);
+                fail.release();
+                fail = MediaPlayer.create(getApplicationContext(),R.raw.failure);
+                fail.setOnCompletionListener(this);
             }
         });
+         success = MediaPlayer.create(getApplicationContext(),R.raw.success);
+        success.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                success.release();
+                success = MediaPlayer.create(getApplicationContext(),R.raw.success);
+                success.setOnCompletionListener(this);
+            }
+        });
+        jump = MediaPlayer.create(getApplicationContext(),R.raw.jumping);
+        jump.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                jump.release();
+                jump = MediaPlayer.create(getApplicationContext(),R.raw.jumping);
+                jump.setOnCompletionListener(this);
+            }
+        });
+
 
 
         //jumpBtn.getBackground().setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
@@ -96,7 +111,6 @@ public class GameActivity extends AppCompatActivity {
 
             public void onFinish() {
                 counter.setText("0");
-                Toast.makeText(GameActivity.this, "The game has ended!", Toast.LENGTH_SHORT).show();
                 Intent it = new Intent(GameActivity.this,ResultActivity.class);
                 it.putExtra("score",Score);
 
@@ -124,11 +138,12 @@ public class GameActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         boolean b = getAnswer(answer, 1);
 
-                        player.start();
 
                         if (b) {
+                            success.start();
                             setMark(true);
                         } else {
+                            fail.start();
                             setMark(false);
                         }
 
@@ -149,10 +164,11 @@ public class GameActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         boolean b = getAnswer(answer, 2);
                        // player.reset();
-                        player.start();
                         if (b) {
+                            success.start();
                             setMark(true);
                         } else {
+                            fail.start();
                             setMark(false);
                         }
                         n_question++;
@@ -170,10 +186,11 @@ public class GameActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         boolean b =  getAnswer(answer,3);
                        // player.reset();
-                        player.start();
                         if (b) {
+                            success.start();
                             setMark(true);
                         } else {
+                            fail.start();
                             setMark(false);
                         }
                         n_question++;
@@ -190,10 +207,11 @@ public class GameActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         boolean b = getAnswer(answer,4);
                        // player.reset();
-                        player.start();
                         if (b) {
+                            success.start();
                             setMark(true);
                         } else {
+                            fail.start();
                             setMark(false);
                         }
                         n_question++;
@@ -208,14 +226,34 @@ public class GameActivity extends AppCompatActivity {
                 jumpBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        n_question++;
-                        if(n_question < array_lenght){
 
-                            startGame(jsonArray);
+
+                        if(jump_count > 0){
+                            jump.start();
+                            n_question++;
+                            jump_count--;
+                            Toast.makeText(GameActivity.this, jump_count+" jumps remaining!", Toast.LENGTH_SHORT).show();
+
+                            if(jump_count == 0){
+                                jumpBtn.setVisibility(View.INVISIBLE);
+                                jumpBtn.setClickable(false);
+                            }
+
+                            if(n_question < array_lenght){
+
+                                startGame(jsonArray);
+                            }
+                            else{
+                                Toast.makeText(GameActivity.this, "OUT OF QUESTIONS", Toast.LENGTH_SHORT).show();
+                            }
+
+
+                        }else{
+                            jumpBtn.setClickable(false);
+                            Toast.makeText(GameActivity.this, "NO MORE JUMPS", Toast.LENGTH_SHORT).show();
                         }
-                        else{
-                            Toast.makeText(GameActivity.this, "OUT OF QUESTIONS", Toast.LENGTH_SHORT).show();
-                        }
+
+
                     }
                 });
 

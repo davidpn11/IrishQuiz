@@ -80,10 +80,14 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/jumpBtn"
-        android:src="@drawable/jump"
+        android:src="@drawable/jump2"
+        android:background="@drawable/round"
         android:layout_below="@+id/op4"
         android:layout_alignLeft="@+id/op4"
-        />
+        android:bottomRightRadius="10dp"
+        android:bottomLeftRadius="10dp"
+        android:topLeftRadius="10dp"
+        android:topRightRadius="10dp"/>
 
 
 </RelativeLayout>

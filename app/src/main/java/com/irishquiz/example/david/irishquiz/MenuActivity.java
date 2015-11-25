@@ -1,6 +1,7 @@
 package com.irishquiz.example.david.irishquiz;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,17 +23,11 @@ public class MenuActivity extends AppCompatActivity {
         TextView player_name = (TextView) findViewById(R.id.textView1);
         score = (TextView) findViewById(R.id.textView2);
         ImageView imageView = (ImageView) findViewById(R.id.imageView2);
-        Button rankBtn = (Button) findViewById(R.id.rankBtn);
+        ImageView rankBtn = (ImageView) findViewById(R.id.rankBtn);
         it = getIntent();
         final String p_name = it.getStringExtra("login");
         db = new DbManager(this);
         player_name.setText(player_name.getText() + p_name);
-
-        String getScore = db.getScore(p_name);
-
-        /*if(!getScore.equals(null)){
-            score.setText(score.getText()+getScore);
-        }*/
 
 
         imageView.setOnClickListener(new View.OnClickListener() {
