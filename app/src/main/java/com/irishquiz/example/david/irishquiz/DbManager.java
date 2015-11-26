@@ -59,10 +59,23 @@ public class DbManager extends SQLiteOpenHelper{
                 " QUESTION_OP3 TEXT," +
                 " QUESTION_OP4 TEXT," +
                 " QUESTION_ANSWER INTEGER);");
+
     }
 
+
+    public int checkQuestionsNumber(){
+
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor c = null;
+        c = db.rawQuery("SELECT * FROM questions", null);
+
+        return c.getCount();
+    }
+
+
+
+
     @Override
-    //
     public void onUpgrade(SQLiteDatabase db, int oldVersion,
                           int newVersion)
     {
@@ -119,7 +132,7 @@ public class DbManager extends SQLiteOpenHelper{
     public String getScore(String login){
         SQLiteDatabase db = getWritableDatabase();
         Cursor c = null;
-        c = db.rawQuery("SELECT player_score FROM " + table_player+" where player_login = \""+login+"\";", null);
+        c = db.rawQuery("SELECT player_score FROM " + table_player + " where player_login = \"" + login + "\";", null);
 
         StringBuffer buf = new StringBuffer();
 
