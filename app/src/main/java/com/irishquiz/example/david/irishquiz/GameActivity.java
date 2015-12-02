@@ -30,7 +30,7 @@ public class GameActivity extends AppCompatActivity {
     ImageButton jumpBtn;
     private MediaPlayer success,fail,jump;
     int Score = 0,array_lenght = 0,n_question = 0,jump_count = 3;
-
+    CountDownTimer count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +101,7 @@ public class GameActivity extends AppCompatActivity {
         }
 
 
-        new CountDownTimer(60000, 1000) {
+        count = new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
 
@@ -118,7 +118,8 @@ public class GameActivity extends AppCompatActivity {
                 startActivity(it);
                 finish();
             }
-        }.start();
+        };
+        count.start();
     }
 
 
@@ -153,6 +154,7 @@ public class GameActivity extends AppCompatActivity {
                             startGame(jsonArray);
                         }
                         else{
+                            count.onFinish();
                             Toast.makeText(GameActivity.this, "OUT OF QUESTIONS", Toast.LENGTH_SHORT).show();
                         }
 
@@ -175,6 +177,7 @@ public class GameActivity extends AppCompatActivity {
                         if (n_question < array_lenght)
                             startGame(jsonArray);
                         else {
+                            count.onFinish();
                             Toast.makeText(GameActivity.this, "OUT OF QUESTIONS", Toast.LENGTH_SHORT).show();
                         }
 
@@ -197,6 +200,7 @@ public class GameActivity extends AppCompatActivity {
                         if(n_question < array_lenght)
                             startGame(jsonArray);
                         else{
+                            count.onFinish();
                             Toast.makeText(GameActivity.this, "OUT OF QUESTIONS", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -218,6 +222,7 @@ public class GameActivity extends AppCompatActivity {
                         if(n_question < array_lenght)
                             startGame(jsonArray);
                         else{
+                            count.onFinish();
                             Toast.makeText(GameActivity.this, "OUT OF QUESTIONS", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -244,6 +249,7 @@ public class GameActivity extends AppCompatActivity {
                                 startGame(jsonArray);
                             }
                             else{
+                                count.onFinish();
                                 Toast.makeText(GameActivity.this, "OUT OF QUESTIONS", Toast.LENGTH_SHORT).show();
                             }
 
